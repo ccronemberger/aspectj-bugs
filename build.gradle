@@ -1,0 +1,55 @@
+plugins {
+	id 'java'
+	id "application"
+	// this plugin needs Gradle 6 and Java 15, notice the aspectpath declaration below
+	//id "aspectj.AspectjGradlePlugin" version "0.0.6"
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+	mavenCentral()
+}
+
+configurations {
+	aspectJAgent {
+		transitive = false
+	}
+}
+
+dependencies {
+	implementation 'org.aspectj:aspectjrt:1.9.7'
+	implementation 'org.aspectj:aspectjweaver:1.9.7'
+	aspectJAgent   'org.aspectj:aspectjweaver:1.9.7'
+	implementation "org.springframework:spring-aspects:$springVersion"
+	implementation "org.springframework:spring-tx:$springVersion"
+	implementation "org.springframework:spring-context:$springVersion"
+	implementation "org.springframework:spring-aop:$springVersion"
+	implementation "org.springframework:spring-jdbc:$springVersion"
+	implementation "com.h2database:h2:1.4.200"
+
+	testImplementation "org.junit.jupiter:junit-jupiter-api:5.8.1"
+	testImplementation "org.junit.jupiter:junit-jupiter:5.8.1"
+	testImplementation "org.springframework:spring-test:$springVersion"
+
+	//aspectpath "org.springframework:spring-aspects:$springVersion"
+}
+
+test {
+	useJUnitPlatform()
+}
+
+test.doFirst {
+	jvmArgs "-javaagent:${configurations.aspectJAgent.singleFile}"
+}
+
+application {
+	mainClassName = "com.example.aspectj.Main"
+	//applicationDefaultJvmArgs "-javaagent:${configurations.aspectJAgent.singleFile}"
+}
+
+run.doFirst {
+	jvmArgs "-javaagent:${configurations.aspectJAgent.singleFile}"
+}
+

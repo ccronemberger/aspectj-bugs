@@ -1,0 +1,19 @@
+<!DOCTYPE aspectj PUBLIC "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+
+  <weaver options="-verbose -showWeaveInfo"> <!--   -->
+    <include within="com.example..*"/>
+    <!--dump within="com.example..*" /-->
+  </weaver>
+
+  <aspects>
+    <aspect name="com.example.aspectj.SecuredMethodAspect"/>
+    <aspect name="com.example.aspectj.SecuredMethodAspect2"/>
+    <aspect name="com.example.aspectj.SecuredMethodAspect3"/>
+    <aspect name="com.example.aspectj.SecuredMethodAspect4"/>
+    <aspect name="com.example.aspectj.SecuredMethodAspect5"/>
+    <aspect name="com.example.aspectj.MyTargetAspect"/>
+    <aspect name="com.example.aspectj.MyTargetAspect2"/>
+  </aspects>
+
+</aspectj>
